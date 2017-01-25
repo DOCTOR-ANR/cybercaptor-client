@@ -131,8 +131,9 @@ routeAppControllers.controller("RadialGaugeDemoCtrl", function($scope){
 
     $scope.value = $scope.valueGauge;
     $scope.upperLimit = 100;
+    //$scope.valueGauge = 50;
     $scope.lowerLimit = 0;
-    $scope.unit = "";
+    $scope.unit = "%";
     $scope.precision = 1;
     $scope.ranges = [
         {min: 0, max: 20, color: '#008000'},
@@ -533,5 +534,11 @@ routeAppControllers.controller('initController', function($scope, $http, myConfi
         alert("Attack graph generated. Ready for analysis.");
     };
     console.info('uploader', uploader);
+    
+    $scope.setApiServer = function(apiserver) {
+        myConfig.url = apiserver + '/' + myConfig.path;
+        myConfig.config = apiserver + '/' + myConfig.configPath;
+        console.log(myConfig.url)
+    }
 
 });
