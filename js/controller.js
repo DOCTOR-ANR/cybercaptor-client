@@ -80,7 +80,7 @@ routeAppControllers.controller('attackPathController', function ($scope, $http, 
                         $scope.attack_graph = transformGraph(valGraph.data);
 
                         $scope.valSelecter = $scope.tab[defaultPath.ID];
-                        $scope.appel(defaultPath);   
+                        $scope.appel(defaultPath);
                     }, function(){alert("Loading of attack graph failed.")})
             }, function(){alert("Loading of attack paths failed.")})
     };   
@@ -92,9 +92,13 @@ routeAppControllers.controller('attackPathController', function ($scope, $http, 
             .then(function(graph){
                 var pathGraph = transformPath(graph.data, $scope.attack_graph);
                 $scope.graphes = pathGraph;
+                
+                if(pathGraph.scoring != undefined){
+                            $scope.valueGauge = pathGraph.scoring * 100;
+                        }
 
                 // Request to retrieve remediations for the attack path
-                $http.get(myConfig.url + "/attack_path/" + numb.ID + "/remediations")
+                /*$http.get(myConfig.url + "/attack_path/" + numb.ID + "/remediations")
                     .then(function(dataRemediations){
                         $scope.dataRemediations = transformRemediation(dataRemediations.data);
 
@@ -102,7 +106,7 @@ routeAppControllers.controller('attackPathController', function ($scope, $http, 
                         if(pathGraph.scoring != undefined){
                             $scope.valueGauge = pathGraph.scoring * 100;
                         }
-                    }, function(){alert("Loading of remediations failed.")})
+                    }, function(){alert("Loading of remediations failed.")})*/
             }, function(){alert("Loading of attack path" + numb.ID + " failed.")})
     };
 
@@ -158,7 +162,7 @@ routeAppControllers.controller("RadialGaugeDemoCtrl", function($scope){
 routeAppControllers.controller('attackGraphController', function ($scope, $http, myConfig) {
 
     $scope.view = {
-        status : "Topological"
+        status : "Logical"
     };   
 
     $scope.init = function(){
