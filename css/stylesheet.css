@@ -87,6 +87,13 @@ svg{
   float:left;
   margin-right:10px;
 }
+#target{
+  background: black;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  float:left;
+  margin-right:10px;
 #vulnerabilityCorrected{
   background: red;
   border : 3px solid green;
