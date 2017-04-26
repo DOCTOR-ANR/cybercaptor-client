@@ -272,7 +272,7 @@ routeAppControllers.controller('attackGraphTopologicalController', function ($sc
 routeAppControllers.controller('attackPathTopologicalController', function ($scope, $http, myConfig) {
 
     $scope.view = {
-        status : "Logical"
+        status : "Topological"
     };
     
     $scope.init = function(){
