@@ -68,20 +68,22 @@ routeAppControllers.controller('attackPathController', function ($scope, $http, 
                 // Array of value for the list
                 $scope.tab = [];
 
-                // Fill the tab with ID and Values
-                for(var i=1; i <= $scope.items.number; ++i){
-                    $scope.tab[i-1] = {"ID" : i-1, "Value" : i};
-                }
-
                 // Request data to build graph
                 var graph = $http.get(myConfig.url + "/attack_graph")
                     .then(function(valGraph) {
-
                         $scope.attack_graph = transformGraph(valGraph.data);
-
                         $scope.valSelecter = $scope.tab[defaultPath.ID];
-                        $scope.appel(defaultPath);
+                        for(var i = 0; i < $scope.items.number; ++i)
+                        {
+                            var path = $http.get(myConfig.url + "/attack_path/"+i)
+                                .then(function(localPath) {
+                                    var pathGraph = transformPath(localPath.data, $scope.attack_graph);
+                                    pathID = localPath.data.attack_path.id
+                                    $scope.tab[pathID] = {"ID" : pathID, "Value" : localPath.data.attack_path.target};
+                                }, function(){alert("Loading of attack path failed.")})
+                        }
                     }, function(){alert("Loading of attack graph failed.")})
+                    $scope.appel(defaultPath);
             }, function(){alert("Loading of attack paths failed.")})
     };   
 
